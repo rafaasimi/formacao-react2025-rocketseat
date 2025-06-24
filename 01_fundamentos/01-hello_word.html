@@ -6,16 +6,17 @@
     <title>Rocketseat - Fundamentos React</title>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root" class=""></div>
 
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
 
     <script type="text/babel">
       ReactDOM.createRoot(document.getElementById("root")).render(
         <>
-          <h1>Hello World</h1>
+          <h1 className="bg-blue-500">Hello World</h1>
           <h2>Meu segundo elemento HTML</h2>
         </>
       );
