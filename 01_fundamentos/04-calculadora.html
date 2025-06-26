@@ -1,9 +1,17 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
   <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rocketseat - Fundamentos React</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik&display=swap"
+      rel="stylesheet"
+    />
 
     <style type="text/tailwindcss">
       @theme {
@@ -29,7 +37,7 @@
       }
     </style>
   </head>
-  <body>
+  <body className="text-(--text) font-(--font-sans)">
     <div id="root"></div>
 
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
@@ -37,6 +45,41 @@
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-    <script type="text/babel"></script>
+    <script type="text/babel">
+      const textVariants = {
+        default: "text-xl",
+        muted: "text-xl text-(--text-secondary)",
+        heading: "text-2xl",
+        blast: "text-3xl",
+      };
+
+      function Text({
+        as = "span",
+        variant = "default",
+        className,
+        children,
+        props,
+      }) {
+        return React.createElement(
+          as,
+          {
+            className: `${textVariants[variant]} ${className}`,
+            ...props,
+          },
+          className,
+          children
+        );
+      }
+
+      function App() {
+        return (
+          <main className="py-28 px-16">
+            <Text variant="default">Calculadora</Text>
+          </main>
+        );
+      }
+
+      ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
   </body>
 </html>
