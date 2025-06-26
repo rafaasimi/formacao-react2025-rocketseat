@@ -71,9 +71,9 @@
       }
 
       const buttonVariants = {
-        default: 'bg-(--background)',
-        primary: 'bg-(--primary)',
-      }
+        default: "bg-(--background)",
+        primary: "bg-(--primary)",
+      };
 
       function Button({ children, className, variant = "default", props }) {
         return (
@@ -97,11 +97,29 @@
         );
       }
 
+      function Card({ children, className, props }) {
+        return (
+          <div
+            className={`
+              bg-(--background)
+              shadow-(--shadow)
+              rounded-2xl
+
+              ${className || ""}
+            `}
+          >
+            {children}
+          </div>
+        );
+      }
+
       function App() {
         return (
           <main className="py-28 px-16">
-            <Button>CE</Button>
-            <Button variant='primary'>=</Button>
+            <Card>
+              <Button>CE</Button>
+              <Button variant="primary">=</Button>
+            </Card>
           </main>
         );
       }
