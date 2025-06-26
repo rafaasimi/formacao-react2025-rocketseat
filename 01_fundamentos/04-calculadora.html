@@ -63,18 +63,45 @@
         return React.createElement(
           as,
           {
-            className: `${textVariants[variant]} ${className}`,
+            className: `${textVariants[variant]} ${className || ""}`,
             ...props,
           },
-          className,
           children
+        );
+      }
+
+      const buttonVariants = {
+        default: 'bg-(--background)',
+        primary: 'bg-(--primary)',
+      }
+
+      function Button({ children, className, variant = "default", props }) {
+        return (
+          <Text
+            as="button"
+            variant="heading"
+            className={`
+              flex items-center justify-center 
+              rounded-xl p-3 cursor-pointer 
+              text-(--text) 
+              bg-linear-(--gradient) 
+              hover:bg-linear-(--gradient-hover) 
+              shadow-(--shadow)
+              ${buttonVariants[variant]}
+              ${className || ""}
+            `}
+            {...props}
+          >
+            {children}
+          </Text>
         );
       }
 
       function App() {
         return (
           <main className="py-28 px-16">
-            <Text variant="default">Calculadora</Text>
+            <Button>CE</Button>
+            <Button variant='primary'>=</Button>
           </main>
         );
       }
