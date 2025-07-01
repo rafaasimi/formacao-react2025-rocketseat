@@ -157,22 +157,64 @@
             <Text
               as="div"
               variant="muted"
-              className="flex items-center justify-end"
+              className="flex items-center justify-end h-7"
             >
-              {operation}
+              {result && operation}
             </Text>
 
-            <div className={`flex items-center justify-between`}>
+            <div className={`flex items-center justify-between h-9`}>
               <Text variant="muted">=</Text>
-              <Text variant="blast">{result}</Text>
+              <Text variant="blast">{result || operation}</Text>
             </div>
           </div>
         );
       }
 
       function Calculator() {
+        const [operation, setOperation] = React.useState("");
+        const [result, setResult] = React.useState("");
+
         function handleInputClick(input) {
-          console.log(input);
+          if (input === "C") {
+            setOperation("");
+            setResult("");
+            return;
+          }
+
+          if (input === "CE") {
+            setResult("");
+            setOperation(operation.slice(0, -2));
+            return;
+          }
+
+          if (input === "=") {
+            const operationResult = eval(operation.replace(/,/g, "."));
+            const parsedResult = operationResult
+              .toString()
+              ?.replace(/\./g, ",");
+
+            setResult(parsedResult);
+            return;
+          }
+
+          if (result) {
+            setOperation(
+              isNaN(input)
+                ? `${result}${input === "," ? "" : " "}${input}`
+                : input
+            );
+            setResult("");
+            return;
+          }
+
+          if (input === "," && !operation.endsWith(",")) {
+            setOperation(`${operation},`);
+            return;
+          }
+
+          setOperation(
+            `${operation}${operation.endsWith(",") ? "" : " "}${input}`
+          );
         }
 
         return (
@@ -182,7 +224,7 @@
             pt-14 px-8 pb-8
             `}
           >
-            <CalculatorDisplay operation="2 + 5" result="7" />
+            <CalculatorDisplay operation={operation} result={result} />
 
             <div className="flex flex-col gap-3">
               {buttons.map((row, index) => (
