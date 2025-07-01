@@ -60,7 +60,7 @@
         variant = "default",
         className,
         children,
-        props,
+        ...props
       }) {
         return React.createElement(
           as,
@@ -77,7 +77,7 @@
         primary: "bg-(--primary)",
       };
 
-      function Button({ children, className, variant = "default", props }) {
+      function Button({ children, className, variant = "default", ...props }) {
         return (
           <Text
             as="button"
@@ -99,7 +99,7 @@
         );
       }
 
-      function Card({ children, className, props }) {
+      function Card({ children, className, ...props }) {
         return (
           <div
             className={`
@@ -171,6 +171,10 @@
       }
 
       function Calculator() {
+        function handleInputClick(input) {
+          console.log(input);
+        }
+
         return (
           <Card
             className={`
@@ -187,7 +191,10 @@
                     <Button
                       key={button.input}
                       className={button?.className || "w-16 h-16"}
-                      variant={button?.variant}
+                      variant={button.variant}
+                      onClick={() => {
+                        handleInputClick(button.input);
+                      }}
                     >
                       {button.input}
                     </Button>
