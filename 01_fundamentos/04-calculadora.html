@@ -48,6 +48,25 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
     <script type="text/babel">
+      const CalculatorContext = React.createContext();
+
+      function CalculatorProvider({ children }) {
+        const [history, setHistory] = React.useState([]);
+
+        function updateHistory(operation, parsedResult) {
+          setHistory((prevValue) => [
+            ...prevValue,
+            `${operation}=${parsedResult}`,
+          ]);
+        }
+
+        return (
+          <CalculatorContext.Provider value={{ history, updateHistory }}>
+            {children}
+          </CalculatorContext.Provider>
+        );
+      }
+
       const textVariants = {
         default: "text-xl",
         muted: "text-xl text-(--text-secondary)",
@@ -171,6 +190,8 @@
       }
 
       function Calculator() {
+        const { updateHistory } = React.useContext(CalculatorContext);
+
         const [operation, setOperation] = React.useState("");
         const [result, setResult] = React.useState("");
 
@@ -194,6 +215,7 @@
               ?.replace(/\./g, ",");
 
             setResult(parsedResult);
+            updateHistory(operation, parsedResult);
             return;
           }
 
@@ -243,6 +265,8 @@
       }
 
       function OperationHistory() {
+        const { history } = React.useContext(CalculatorContext);
+
         return (
           <Card className="w-full py-10 px-8">
             <Text as="h1" variant="heading" className="mb-4">
@@ -250,9 +274,17 @@
             </Text>
 
             <ul className="flex flex-col gap-3">
-              <Text as="li">1 + 1 = 2</Text>
-              <Text as="li">2 + 3 + 1 = 6</Text>
-              <Text as="li">2 + 3 = 5</Text>
+              {history.length > 0 ? (
+                history.map((operation, index) => (
+                  <Text key={`${operation}${index}`} as="li">
+                    {operation}
+                  </Text>
+                ))
+              ) : (
+                <Text as="p" variant="muted">
+                  Não há nenhuma operação recente.
+                </Text>
+              )}
             </ul>
           </Card>
         );
@@ -261,8 +293,10 @@
       function App() {
         return (
           <main className="py-28 px-4 sm:px-40 flex flex-col gap-2 sm:flex-row items-center sm:items-stretch">
-            <Calculator />
-            <OperationHistory />
+            <CalculatorProvider>
+              <Calculator />
+              <OperationHistory />
+            </CalculatorProvider>
           </main>
         );
       }
