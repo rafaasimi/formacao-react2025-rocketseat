@@ -54,6 +54,12 @@
         const [history, setHistory] = React.useState([]);
         const historyStorageKey = "history";
 
+        React.useEffect(() => {
+          const savedhistory = localStorage.getItem(historyStorageKey);
+
+          setHistory(JSON.parse(savedhistory || "[]"));
+        }, []);
+
         function updateHistory(operation, parsedResult) {
           setHistory((prevValue) => {
             const updatedHistory = [
@@ -112,11 +118,11 @@
             as="button"
             variant="heading"
             className={`
-              flex items-center justify-center 
-              rounded-xl p-3 cursor-pointer 
-              text-(--text) 
-              bg-linear-(--gradient) 
-              hover:bg-linear-(--gradient-hover) 
+              flex items-center justify-center
+              rounded-xl p-3 cursor-pointer
+              text-(--text)
+              bg-linear-(--gradient)
+              hover:bg-linear-(--gradient-hover)
               shadow-(--shadow)
               ${buttonVariants[variant]}
               ${className || ""}
