@@ -52,12 +52,22 @@
 
       function CalculatorProvider({ children }) {
         const [history, setHistory] = React.useState([]);
+        const historyStorageKey = "history";
 
         function updateHistory(operation, parsedResult) {
-          setHistory((prevValue) => [
-            ...prevValue,
-            `${operation}=${parsedResult}`,
-          ]);
+          setHistory((prevValue) => {
+            const updatedHistory = [
+              ...prevValue,
+              `${operation}=${parsedResult}`,
+            ];
+
+            localStorage.setItem(
+              historyStorageKey,
+              JSON.stringify(updatedHistory)
+            );
+
+            return updatedHistory;
+          });
         }
 
         return (
@@ -209,7 +219,9 @@
           }
 
           if (input === "=") {
-            const operationResult = eval(operation.replace(/,/g, "."));
+            const operationResult = eval(
+              operation.replace(/,/g, ".").replace(/x/g, "*")
+            );
             const parsedResult = operationResult
               .toString()
               ?.replace(/\./g, ",");
@@ -265,7 +277,7 @@
       }
 
       function OperationHistory() {
-        const { history } = React.useContext(CalculatorContext);
+        const { history, updateHistory } = React.useContext(CalculatorContext);
 
         return (
           <Card className="w-full py-10 px-8">
