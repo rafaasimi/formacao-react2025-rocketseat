@@ -15,10 +15,11 @@ import { ButtonIcon } from "./components/button-icon";
 import { InputText } from "./components/input-text";
 import { InputCheckbox } from "./components/input-checkbox";
 import { Card } from "./components/card";
+import { Container } from "./components/container";
 
 export default function App() {
   return (
-    <div className="grid gap-10 p-4">
+    <Container className="grid gap-10 p-4">
       <div className="flex flex-col gap-2">
         <Text as="p" className="text-pink-dark">
           Olá mundo!
@@ -70,6 +71,6 @@ export default function App() {
       <div>
         <Card size={"md"}>Olá mundo</Card>
       </div>
-    </div>
+    </Container>
   );
 }
