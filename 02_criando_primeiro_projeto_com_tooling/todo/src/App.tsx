@@ -13,10 +13,11 @@ import { Badge } from "./components/badge";
 import { Button } from "./components/button";
 import { ButtonIcon } from "./components/button-icon";
 import { InputText } from "./components/input-text";
+import { InputCheckbox } from "./components/input-checkbox";
 
 export default function App() {
   return (
-    <div className="grid gap-10">
+    <div className="grid gap-10 p-4">
       <div className="flex flex-col gap-2">
         <Text as="p" className="text-pink-dark">
           Olá mundo!
@@ -59,6 +60,10 @@ export default function App() {
 
       <div>
         <InputText />
+      </div>
+
+      <div>
+        <InputCheckbox />
       </div>
     </div>
   );
