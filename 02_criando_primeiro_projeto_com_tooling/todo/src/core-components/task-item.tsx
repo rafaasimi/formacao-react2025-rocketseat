@@ -45,7 +45,7 @@ export function TaskItem() {
               variant="secondary"
               onClick={handleExitEditTask}
             />
-            <ButtonIcon icon={PencilIcon} variant="primary" />
+            <ButtonIcon icon={CheckIcon} variant="primary" />
           </div>
         </>
       )}
