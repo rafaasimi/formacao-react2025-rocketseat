@@ -11,6 +11,7 @@ import XIcon from "../assets/icons/x.svg?react";
 import CheckIcon from "../assets/icons/check.svg?react";
 import { TaskState, type Task } from "../models/task";
 import { cx } from "class-variance-authority";
+import { useTask } from "../hooks/use-task";
 
 interface TaskItemProps {
   task: Task;
@@ -21,7 +22,8 @@ export function TaskItem({ task }: TaskItemProps) {
     task?.state === TaskState.Creating
   );
 
-  const [taskTitle, setTaskTitle] = useState("");
+  const [taskTitle, setTaskTitle] = useState(task.title || "");
+  const { updateTask } = useTask();
 
   function handleEditTask() {
     setIsEditing(true);
@@ -37,8 +39,8 @@ export function TaskItem({ task }: TaskItemProps) {
 
   function handleSaveTask(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log({ id: task.id, title: taskTitle });
-    // chamada função atualizar
+
+    updateTask(task.id, { title: taskTitle });
     setIsEditing(false);
   }
 
@@ -69,6 +71,7 @@ export function TaskItem({ task }: TaskItemProps) {
       ) : (
         <form className="flex items-center gap-4" onSubmit={handleSaveTask}>
           <InputText
+            value={taskTitle}
             className="flex-1"
             onChange={handleChangeTaskTitle}
             required
