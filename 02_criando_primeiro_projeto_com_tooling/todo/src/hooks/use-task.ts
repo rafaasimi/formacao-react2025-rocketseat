@@ -31,10 +31,27 @@ export function useTask() {
         task.id === id ? { ...task, state: TaskState.Created, concluded } : task
       )
     );
+
+    sortTaskByStatus();
   }
 
   function deleteTask(id: string) {
     setTasks(tasks.filter((task) => task.id !== id));
+  }
+
+  function sortTaskByStatus() {
+    setTasks((prevTask) => {
+      if (!prevTask) {
+        return;
+      }
+
+      return prevTask.sort((taskA, taskB) => {
+        const concludedA = taskA.concluded ?? false;
+        const concludedB = taskB.concluded ?? false;
+
+        return Number(concludedA) - Number(concludedB);
+      });
+    });
   }
 
   return {
