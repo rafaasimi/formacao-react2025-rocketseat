@@ -25,8 +25,17 @@ export function useTask() {
     );
   }
 
+  function updateTaskStatus(id: string, concluded: boolean) {
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, state: TaskState.Created, concluded } : task
+      )
+    );
+  }
+
   return {
     prepareTask,
     updateTask,
+    updateTaskStatus,
   };
 }
