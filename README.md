@@ -19,3 +19,16 @@ Este repositório contém todos os materiais e projetos desenvolvidos na [Forma�
 
 #### Projetos
 <img src='.github/calculadora.png' />
+
+### Criando primeiro projeto com tooling
+- Criação de um projeto React utilizando [Vitejs](https://vite.dev/)
+- Configuração e uso do [TailwindCSS](https://tailwindcss.com/)
+- Configuração e uso do [vite-plugin-svgr](https://www.npmjs.com/package/vite-plugin-svgr) para transformar SVG em componentes React
+- Configuração e uso do [](https://cva.style/docs) para faciliar a criação de variantes dos componentes
+- Criação de todos os componentes de uso do projeto
+- Criação da interface
+- Uso da biblioteca 'use-local-storage' para facilitar salvar e consumir do localStorage
+- Aplicação das regras de negócio (Buscar, Inserir, Deletar, Editar)
+
+#### Projetos
+<img src='.github/todo.png' />
