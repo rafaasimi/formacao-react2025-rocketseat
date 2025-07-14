@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { fetcher } from "../helpers/api";
+import { api, fetcher } from "../helpers/api";
 import type { User } from "../models/user";
 
 export function useUser() {
@@ -23,5 +23,18 @@ export function useUser() {
     }
   }, []);
 
-  return { user, requestStatus, getUser };
+  async function createUser(payload: User) {
+    try {
+      setRequestStatus("saving");
+      await api("/users", { method: "POST", body: JSON.stringify(payload) });
+      alert("Usuário criado com sucesso");
+    } catch (e) {
+      console.log(e);
+      alert("Erro ao criar usuário");
+    } finally {
+      setRequestStatus("idle");
+    }
+  }
+
+  return { user, requestStatus, getUser, createUser };
 }
