@@ -24,7 +24,7 @@ Este repositório contém todos os materiais e projetos desenvolvidos na [Forma�
 - Criação de um projeto React utilizando [Vitejs](https://vite.dev/)
 - Configuração e uso do [TailwindCSS](https://tailwindcss.com/)
 - Configuração e uso do [vite-plugin-svgr](https://www.npmjs.com/package/vite-plugin-svgr) para transformar SVG em componentes React
-- Configuração e uso do [](https://cva.style/docs) para faciliar a criação de variantes dos componentes
+- Configuração e uso do [Class Variance Authority](https://cva.style/docs) para faciliar a criação de variantes dos componentes
 - Criação de todos os componentes de uso do projeto
 - Criação da interface
 - Uso da biblioteca 'use-local-storage' para facilitar salvar e consumir do localStorage
@@ -32,3 +32,9 @@ Este repositório contém todos os materiais e projetos desenvolvidos na [Forma�
 
 #### Projetos
 <img src='.github/todo.png' />
+
+### Avançando nos fundamentos
+- Introdução teórica
+  - Utilizando referências com useRef
+  - Memoização de dados com useMemo e useCallback
+  - Requisições HTTP com [JSON Server](https://www.npmjs.com/package/json-server)
