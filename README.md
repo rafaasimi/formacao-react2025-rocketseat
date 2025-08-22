@@ -1,6 +1,7 @@
 # Formação React 2025 - Rocketseat
 
 ## 📋 Descrição
+
 Este repositório contém todos os materiais e projetos desenvolvidos na [Formação React 2025](https://app.rocketseat.com.br/journey/react-2025/) da Rocketseat.
 
 ## ‼️ Índice
@@ -8,6 +9,7 @@ Este repositório contém todos os materiais e projetos desenvolvidos na [Forma�
 ## 💻 Materiais e Projetos
 
 ### Fundamentos
+
 - Fundamentos do React
   - Componentes
   - Propriedades
@@ -18,9 +20,11 @@ Este repositório contém todos os materiais e projetos desenvolvidos na [Forma�
   - Custom Hooks
 
 #### Projetos
+
 <img src='.github/calculadora.png' />
 
 ### Criando primeiro projeto com tooling
+
 - Criação de um projeto React utilizando [Vitejs](https://vite.dev/)
 - Configuração e uso do [TailwindCSS](https://tailwindcss.com/)
 - Configuração e uso do [vite-plugin-svgr](https://www.npmjs.com/package/vite-plugin-svgr) para transformar SVG em componentes React
@@ -31,10 +35,13 @@ Este repositório contém todos os materiais e projetos desenvolvidos na [Forma�
 - Aplicação das regras de negócio (Buscar, Inserir, Deletar, Editar)
 
 #### Projetos
+
 <img src='.github/todo.png' />
 
 ### Avançando nos fundamentos
+
 - Introdução teórica
   - Utilizando referências com useRef
   - Memoização de dados com useMemo e useCallback
   - Requisições HTTP com [JSON Server](https://www.npmjs.com/package/json-server)
+  - Criação de variantes de componentes utilizando [Tailwind Variants](https://www.tailwind-variants.org/)
