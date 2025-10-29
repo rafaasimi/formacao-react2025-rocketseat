@@ -55,8 +55,10 @@ export function PhotoNewDialog({ trigger }: PhotoNewDialogProps) {
           />
 
           <div className="space-y-3">
-            <Text variant="label-small">Selecionar álbuns</Text>
-            <div className="flex flex-wrap gap-3 mt-3">
+            <Text as="div" variant="label-small">
+              Selecionar álbuns
+            </Text>
+            <div className="flex flex-wrap gap-3">
               {!isLoadingAlbum &&
                 albums.length > 0 &&
                 albums.map((album) => (
