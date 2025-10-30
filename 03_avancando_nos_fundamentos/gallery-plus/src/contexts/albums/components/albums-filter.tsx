@@ -27,17 +27,16 @@ export function AlbumsFilter({
             <Button size="sm" variant="primary" className="cursor-pointer">
               Todos
             </Button>
-            {!loading &&
-              albums.map((album) => (
-                <Button
-                  key={album.id}
-                  size="sm"
-                  variant="ghost"
-                  className="cursor-pointer"
-                >
-                  {album.title}
-                </Button>
-              ))}
+            {albums.map((album) => (
+              <Button
+                key={album.id}
+                size="sm"
+                className="cursor-pointer"
+                variant="ghost"
+              >
+                {album.title}
+              </Button>
+            ))}
           </>
         ) : (
           Array.from({ length: 5 }).map((_, index) => (
