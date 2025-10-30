@@ -13,7 +13,6 @@ import Text from '../../../components/text';
 import type { Photo } from '../../photos/models/photo';
 import SelectCheckboxIllustration from '../../../assets/images/select-checkbox.svg?react';
 import Skeleton from '../../../components/skeleton';
-import { ImagePreview } from '../../../components/image-preview';
 import { PhotoImageSelectable } from '../../photos/components/photo-image-selectable';
 
 interface AlbumNewDialogProps {
