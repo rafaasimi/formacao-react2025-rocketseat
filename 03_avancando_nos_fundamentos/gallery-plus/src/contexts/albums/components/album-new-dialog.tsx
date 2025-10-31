@@ -10,7 +10,6 @@ import {
 } from '../../../components/dialog';
 import { InputText } from '../../../components/input-text';
 import Text from '../../../components/text';
-import type { Photo } from '../../photos/models/photo';
 import SelectCheckboxIllustration from '../../../assets/images/select-checkbox.svg?react';
 import Skeleton from '../../../components/skeleton';
 import { PhotoImageSelectable } from '../../photos/components/photo-image-selectable';
