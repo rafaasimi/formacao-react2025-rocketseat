@@ -12,7 +12,7 @@ import type { Photo } from '../contexts/photos/models/photo';
 
 export function PagePhotoDetails() {
   const { id } = useParams();
-  const { photo, isLoadingPhoto } = usePhoto(id);
+  const { photo, isLoadingPhoto, nextPhotoId, previousPhotoId } = usePhoto(id);
   const { albums, isLoadingAlbums } = useAlbums();
 
   if (!isLoadingPhoto && !photo) {
@@ -30,7 +30,11 @@ export function PagePhotoDetails() {
           <Skeleton className="w-48 h-8" />
         )}
 
-        <PhotosNavigator loading={isLoadingPhoto} />
+        <PhotosNavigator
+          nextPhotoId={nextPhotoId}
+          previousPhotoId={previousPhotoId}
+          loading={isLoadingPhoto}
+        />
       </header>
 
       <div className="grid grid-cols-[21rem_1fr] gap-24">
