@@ -1,12 +1,19 @@
-import { InputText } from "./input-text";
-import SearchIcon from "../assets/icons/search.svg?react";
-import React from "react";
-import { debounce } from "../helpers/utils";
+import { InputText } from './input-text';
+import SearchIcon from '../assets/icons/search.svg?react';
+import React from 'react';
+import { debounce } from '../helpers/utils';
+import { usePhotos } from '../contexts/photos/hooks/use-photos';
 
 export function PhotosSearch() {
-  const [inputValue, setInputValue] = React.useState("");
+  const [inputValue, setInputValue] = React.useState('');
+  const { filters } = usePhotos();
 
-  const debouncedSetValue = React.useCallback(debounce((value: string) => console.log(value), 300), []);
+  const debouncedSetValue = React.useCallback(
+    debounce((value: string) => {
+      filters.setQ(value);
+    }, 300),
+    [filters.setQ]
+  );
 
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     const value = event.target.value;
@@ -23,5 +30,5 @@ export function PhotosSearch() {
       value={inputValue}
       onChange={handleInputChange}
     />
-  )
+  );
 }
