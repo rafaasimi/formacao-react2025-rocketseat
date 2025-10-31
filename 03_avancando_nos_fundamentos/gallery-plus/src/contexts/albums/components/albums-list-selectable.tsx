@@ -17,7 +17,7 @@ export function AlbumsListSelectable({
   photo,
 }: AlbumsListSelectableProps) {
   function isChecked(albumId: string) {
-    return photo.albums.some((album) => album.id === albumId);
+    return photo?.albums?.some((album) => album.id === albumId);
   }
 
   function handlePhotoOnAlbums(albumId: string) {

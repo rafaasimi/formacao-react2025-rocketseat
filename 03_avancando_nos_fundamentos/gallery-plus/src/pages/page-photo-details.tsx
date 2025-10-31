@@ -7,31 +7,24 @@ import { ImagePreview } from '../components/image-preview';
 import Button from '../components/button';
 import { AlbumsListSelectable } from '../contexts/albums/components/albums-list-selectable';
 import { useAlbums } from '../contexts/albums/hooks/use-albums';
+import { usePhoto } from '../contexts/photos/hooks/use-photo';
+import type { Photo } from '../contexts/photos/models/photo';
 
 export function PagePhotoDetails() {
   const { id } = useParams();
+  const { photo, isLoadingPhoto } = usePhoto(id);
   const { albums, isLoadingAlbums } = useAlbums();
 
-  // Apenas para fazer o teste do mock
-  const isLoadingPhoto = false;
-  const photo = {
-    id: '1',
-    title: 'Foto de uma praia paradisíaca',
-    imageId:
-      'https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
-    albums: [
-      { id: '1', title: 'Viagens' },
-      { id: '2', title: 'Natureza' },
-      { id: '3', title: 'Países' },
-    ],
-  };
+  if (!isLoadingPhoto && !photo) {
+    return <div>Foto não encontrada</div>;
+  }
 
   return (
     <Container>
       <header className="flex items-center justify-between gap-8 mb-8">
         {!isLoadingPhoto ? (
           <Text as="h2" variant="heading-large">
-            {photo.title}
+            {photo?.title}
           </Text>
         ) : (
           <Skeleton className="w-48 h-8" />
@@ -44,7 +37,7 @@ export function PagePhotoDetails() {
         <div className="space-y-3">
           {!isLoadingPhoto ? (
             <ImagePreview
-              src={`/images/${photo?.imageId}`}
+              src={`${import.meta.env.VITE_IMAGES_URL}/${photo?.imageId}`}
               title={photo?.title}
               imageClassName="h-[21rem]"
             />
@@ -64,7 +57,7 @@ export function PagePhotoDetails() {
             Álbuns
           </Text>
           <AlbumsListSelectable
-            photo={photo}
+            photo={photo as Photo}
             albums={albums}
             loading={isLoadingAlbums}
           />
