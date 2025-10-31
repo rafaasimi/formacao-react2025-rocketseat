@@ -14,82 +14,14 @@ import type { Photo } from '../../photos/models/photo';
 import SelectCheckboxIllustration from '../../../assets/images/select-checkbox.svg?react';
 import Skeleton from '../../../components/skeleton';
 import { PhotoImageSelectable } from '../../photos/components/photo-image-selectable';
+import { usePhotos } from '../../photos/hooks/use-photos';
 
 interface AlbumNewDialogProps {
   trigger: React.ReactNode;
 }
 
 export function AlbumNewDialog({ trigger }: AlbumNewDialogProps) {
-  // TODO: Utilizar API quando estiver pronta
-  const isLoadingPhotos = false;
-  const photos: Photo[] = [
-    {
-      id: '1',
-      title: 'Foto de uma praia paradisíaca',
-      imageId:
-        'https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
-      albums: [
-        { id: '1', title: 'Viagens' },
-        { id: '2', title: 'Natureza' },
-        { id: '3', title: 'Países' },
-      ],
-    },
-    {
-      id: '2',
-      title: 'Foto de uma praia paradisíaca',
-      imageId:
-        'https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
-      albums: [
-        { id: '1', title: 'Viagens' },
-        { id: '2', title: 'Natureza' },
-        { id: '3', title: 'Países' },
-      ],
-    },
-    {
-      id: '3',
-      title: 'Foto de uma praia paradisíaca',
-      imageId:
-        'https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
-      albums: [
-        { id: '1', title: 'Viagens' },
-        { id: '2', title: 'Natureza' },
-        { id: '3', title: 'Países' },
-      ],
-    },
-    {
-      id: '4',
-      title: 'Foto de uma praia paradisíaca',
-      imageId:
-        'https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
-      albums: [
-        { id: '1', title: 'Viagens' },
-        { id: '2', title: 'Natureza' },
-        { id: '3', title: 'Países' },
-      ],
-    },
-    {
-      id: '5',
-      title: 'Foto de uma praia paradisíaca',
-      imageId:
-        'https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
-      albums: [
-        { id: '1', title: 'Viagens' },
-        { id: '2', title: 'Natureza' },
-        { id: '3', title: 'Países' },
-      ],
-    },
-    {
-      id: '6',
-      title: 'Foto de uma praia paradisíaca',
-      imageId:
-        'https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
-      albums: [
-        { id: '1', title: 'Viagens' },
-        { id: '2', title: 'Natureza' },
-        { id: '3', title: 'Países' },
-      ],
-    },
-  ];
+  const { photos, isLoadingPhotos } = usePhotos();
 
   function handleTogglePhoto(selected: boolean, photoId: string) {
     console.log(selected, photoId);
@@ -114,7 +46,7 @@ export function AlbumNewDialog({ trigger }: AlbumNewDialogProps) {
                 {photos.map((photo) => (
                   <PhotoImageSelectable
                     key={photo.id}
-                    src={`/images/${photo.imageId}`}
+                    src={`${import.meta.env.VITE_IMAGES_URL}/${photo.imageId}`}
                     title={photo.title}
                     imageClassName="w-20 h-20"
                     onSelectImage={(selected) =>
