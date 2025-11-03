@@ -1,11 +1,11 @@
-import { type VariantProps, tv } from "tailwind-variants"
-import Icon from "./icon"
-import Text, { textVariants } from "./text"
-import { useWatch } from "react-hook-form"
+import { type VariantProps, tv } from 'tailwind-variants';
+import Icon from './icon';
+import Text, { textVariants } from './text';
+import { useWatch } from 'react-hook-form';
 
-import UploadFileIcon from '../assets/icons/upload-file.svg?react'
-import FileImageIcon from '../assets/icons/image.svg?react'
-import React from "react"
+import UploadFileIcon from '../assets/icons/upload-file.svg?react';
+import FileImageIcon from '../assets/icons/image.svg?react';
+import React from 'react';
 
 export const inputSingleFileVariants = tv({
   base: `
@@ -15,27 +15,29 @@ export const inputSingleFileVariants = tv({
   `,
   variants: {
     size: {
-      md: 'px-6 py-6'
-    }
+      md: 'px-6 py-6',
+    },
   },
   defaultVariants: {
-    size: 'md'
-  }
-})
+    size: 'md',
+  },
+});
 
 export const inputSingleFileIconVariants = tv({
   base: ' fill-placeholder',
   variants: {
     size: {
-      md: 'w-8 h-8'
-    }
+      md: 'w-8 h-8',
+    },
   },
   defaultVariants: {
-    size: 'md'
-  }
+    size: 'md',
+  },
 });
 
-interface InputSingleFileProps extends VariantProps<typeof inputSingleFileVariants>, Omit<React.ComponentProps<'input'>, 'size'> {
+interface InputSingleFileProps
+  extends VariantProps<typeof inputSingleFileVariants>,
+    Omit<React.ComponentProps<'input'>, 'size'> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   form?: any;
   allowedExtensions: string[];
@@ -44,13 +46,24 @@ interface InputSingleFileProps extends VariantProps<typeof inputSingleFileVarian
   error?: React.ReactNode;
 }
 
-export function InputSingleFile({ size, error, form, allowedExtensions, maxFileSizeInMB, replaceBy, ...props }: InputSingleFileProps) {
+export function InputSingleFile({
+  size,
+  error,
+  form,
+  allowedExtensions,
+  maxFileSizeInMB,
+  replaceBy,
+  ...props
+}: InputSingleFileProps) {
   const formValues = useWatch({ control: form.control });
   const name = props.name || '';
-  const formFile: File = React.useMemo(() => formValues[name]?.[0], [formValues, name])
+  const formFile: File = React.useMemo(
+    () => formValues[name]?.[0],
+    [formValues, name]
+  );
   const { fileExtension, fileSize } = React.useMemo(
     () => ({
-      fileExtension: formFile?.name?.split(".")?.pop()?.toLowerCase() || "",
+      fileExtension: formFile?.name?.split('.')?.pop()?.toLowerCase() || '',
       fileSize: formFile?.size || 0,
     }),
     [formFile]
@@ -75,16 +88,24 @@ export function InputSingleFile({ size, error, form, allowedExtensions, maxFileS
           <div className="w-full relative group cursor-pointer">
             <input
               type="file"
-              className='
+              className="
           absolute top-0 right-0 w-full h-full
           opacity-0 cursor-pointer
-          '
+          "
               title="Arraste o arquivo aqui ou clique para selecionar"
               {...props}
             />
             <div className={inputSingleFileVariants({ size })}>
-              <Icon svg={UploadFileIcon} className={inputSingleFileIconVariants({ size })} />
-              <Text variant="label-medium" className="text-placeholder text-center">Arraste o arquivo aqui <br /> ou clique para selecionar</Text>
+              <Icon
+                svg={UploadFileIcon}
+                className={inputSingleFileIconVariants({ size })}
+              />
+              <Text
+                variant="label-medium"
+                className="text-placeholder text-center"
+              >
+                Arraste o arquivo aqui <br /> ou clique para selecionar
+              </Text>
             </div>
           </div>
 
@@ -101,32 +122,41 @@ export function InputSingleFile({ size, error, form, allowedExtensions, maxFileS
             )}
             {error && (
               <Text variant="label-small" className="text-accent-red">
-                Erro no campo
+                {error}
               </Text>
             )}
           </div>
         </>
       ) : (
         <>
-          <div>
-            {replaceBy}
-          </div>
+          <div>{replaceBy}</div>
 
           <div className="flex gap-3 items-center border border-solid border-border-primary mt-5 rounded p-3">
             <Icon svg={FileImageIcon} className="fill-white w-6 h-6" />
             <div className="flex flex-col ">
               <div className="truncate max-w-80">
-                <Text variant="label-medium" className="text-placeholder">{formFile.name}</Text>
+                <Text variant="label-medium" className="text-placeholder">
+                  {formFile.name}
+                </Text>
               </div>
               <div className="flex">
-                <button type="button" className={textVariants({ variant: 'label-small', className: 'text-accent-red cursor-pointer hover:underline' })} onClick={() => {
-                  form.setValue(name, undefined)
-                }}>Remover</button>
+                <button
+                  type="button"
+                  className={textVariants({
+                    variant: 'label-small',
+                    className: 'text-accent-red cursor-pointer hover:underline',
+                  })}
+                  onClick={() => {
+                    form.setValue(name, undefined);
+                  }}
+                >
+                  Remover
+                </button>
               </div>
             </div>
           </div>
         </>
       )}
-    </div >
-  )
+    </div>
+  );
 }
