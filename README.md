@@ -6,6 +6,11 @@ Este repositório contém todos os materiais e projetos desenvolvidos na [Forma�
 
 ## ‼️ Índice
 
+- [Materiais e Projetos](#materiais-e-projetos)
+  - [Fundamentos](#fundamentos)
+  - [Criando primeiro projeto com tooling](#criando-primeiro-projeto-com-tooling)
+  - [Avançando nos fundamentos](#avançando-nos-fundamentos)
+
 ## 💻 Materiais e Projetos
 
 ### Fundamentos
