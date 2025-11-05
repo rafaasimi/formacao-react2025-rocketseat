@@ -45,3 +45,12 @@ Este repositório contém todos os materiais e projetos desenvolvidos na [Forma�
   - Memoização de dados com useMemo e useCallback
   - Requisições HTTP com [JSON Server](https://www.npmjs.com/package/json-server)
   - Criação de variantes de componentes utilizando [Tailwind Variants](https://www.tailwind-variants.org/)
+  - Uso de bibliotecas como:
+    - [ReactRouter](https://reactrouter.com/) para gerenciamento de rotas
+    - [ReactQuery](https://tanstack.com/query) para cache das nossas requisições
+    - [ReactHookForm](https://react-hook-form.com/) e [Zod](https://zod.dev/) para criação e validação de formulários
+    - [Nuqs](https://nuqs.dev/) para gerenciamento e estados dos nossos search params
+
+#### Projetos
+
+<img src='.github/gallery-plus.png' />
