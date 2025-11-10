@@ -6,7 +6,7 @@ const titleVariants = cva("font-bold text-gray-100", {
   variants: {
     size: {
       lg: "text-[2rem]",
-      md: "text-[1rem]",
+      md: "text-base",
       sm: "text-sm",
     },
   },
