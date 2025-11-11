@@ -5,8 +5,8 @@ import { cn } from "@/lib/utils";
 const paragraphVariants = cva("font-normal text-gray-100", {
   variants: {
     size: {
-      md: "text-base/1.5rem",
-      sm: "text-sm/1.25rem",
+      md: "text-[1rem]",
+      sm: "text-[.875rem]",
     },
   },
   defaultVariants: {
