@@ -1,3 +1,4 @@
+import { ButtonIcon } from "@/components/buttonIcon";
 import { Paragraph } from "@/components/paragraph";
 import { Title } from "@/components/title";
 import { Button } from "@/components/ui/button";
@@ -6,7 +7,18 @@ import {
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group";
-import { UserSquareIcon } from "@phosphor-icons/react";
+import {
+  CalendarBlankIcon,
+  CaretDownIcon,
+  CaretLeftIcon,
+  CaretRightIcon,
+  CloudSunIcon,
+  MoonStarsIcon,
+  SunHorizonIcon,
+  TrashIcon,
+  UserSquare,
+  UserSquareIcon,
+} from "@phosphor-icons/react";
 
 export function Components() {
   return (
@@ -59,6 +71,39 @@ export function Components() {
               <UserSquareIcon />
             </InputGroupAddon>
           </InputGroup>
+        </li>
+      </ul>
+
+      <br />
+
+      <Title size="lg">Button Icon</Title>
+      <ul className="flex gap-2">
+        <li>
+          <ButtonIcon icon={<SunHorizonIcon />} />
+        </li>
+        <li>
+          <ButtonIcon icon={<CloudSunIcon />} />
+        </li>
+        <li>
+          <ButtonIcon icon={<UserSquareIcon />} />
+        </li>
+        <li>
+          <ButtonIcon icon={<MoonStarsIcon />} />
+        </li>
+        <li>
+          <ButtonIcon icon={<CaretDownIcon />} />
+        </li>
+        <li>
+          <ButtonIcon icon={<CalendarBlankIcon />} />
+        </li>
+        <li>
+          <ButtonIcon icon={<CaretRightIcon />} />
+        </li>
+        <li>
+          <ButtonIcon icon={<CaretLeftIcon />} />
+        </li>
+        <li>
+          <ButtonIcon icon={<TrashIcon />} />
         </li>
       </ul>
     </div>
