@@ -1,7 +1,9 @@
 import { ButtonIcon } from "@/components/buttonIcon";
+import { useState } from "react";
 import { Paragraph } from "@/components/paragraph";
 import { Title } from "@/components/title";
 import { Button } from "@/components/ui/button";
+import { RadioChipGroup } from "@/components/radioSelect";
 import {
   InputGroup,
   InputGroupAddon,
@@ -16,11 +18,12 @@ import {
   MoonStarsIcon,
   SunHorizonIcon,
   TrashIcon,
-  UserSquare,
   UserSquareIcon,
 } from "@phosphor-icons/react";
 
 export function Components() {
+  const [selectedTime, setSelectedTime] = useState<string | undefined>("08:00");
+
   return (
     <div className="max-w-3xs">
       <ul>
@@ -106,6 +109,27 @@ export function Components() {
           <ButtonIcon icon={<TrashIcon />} />
         </li>
       </ul>
+
+      <br />
+
+      <Title size="lg">Time Select</Title>
+      <div className="space-y-2">
+        <RadioChipGroup
+          name="appointment-time"
+          value={selectedTime}
+          onChange={setSelectedTime}
+          options={[
+            { value: "08:00", label: "08:00" },
+            { value: "08:30", label: "08:30" },
+            { value: "09:00", label: "09:00" },
+            { value: "09:30", label: "09:30" },
+            { value: "10:00", label: "10:00" },
+            { value: "10:30", label: "10:30" },
+            { value: "11:00", label: "11:00", disabled: true },
+          ]}
+        />
+        <Paragraph size="sm">Selecionado: {selectedTime ?? "Nenhum"}</Paragraph>
+      </div>
     </div>
   );
 }
