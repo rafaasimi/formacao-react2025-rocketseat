@@ -1,10 +1,16 @@
 import { Paragraph } from "@/components/paragraph";
 import { Title } from "@/components/title";
 import { Button } from "@/components/ui/button";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from "@/components/ui/input-group";
+import { UserSquareIcon } from "@phosphor-icons/react";
 
 export function Components() {
   return (
-    <div>
+    <div className="max-w-3xs">
       <ul>
         <li>
           <Title size="lg">Esse é meu título</Title>
@@ -43,6 +49,18 @@ export function Components() {
       </ul>
 
       <br />
+
+      <Title size="lg">Input</Title>
+      <ul>
+        <li>
+          <InputGroup>
+            <InputGroupInput type="text" placeholder="Nome do cliente" />
+            <InputGroupAddon>
+              <UserSquareIcon />
+            </InputGroupAddon>
+          </InputGroup>
+        </li>
+      </ul>
     </div>
   );
 }
