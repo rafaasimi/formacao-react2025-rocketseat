@@ -20,6 +20,7 @@ import {
   TrashIcon,
   UserSquareIcon,
 } from "@phosphor-icons/react";
+import { SelectDate } from "@/components/select-date";
 
 export function Components() {
   const [selectedTime, setSelectedTime] = useState<string | undefined>("08:00");
@@ -129,6 +130,13 @@ export function Components() {
           ]}
         />
         <Paragraph size="sm">Selecionado: {selectedTime ?? "Nenhum"}</Paragraph>
+      </div>
+
+      <br />
+
+      <Title size="lg">Date Select</Title>
+      <div className="space-y-2">
+        <SelectDate />
       </div>
     </div>
   );
