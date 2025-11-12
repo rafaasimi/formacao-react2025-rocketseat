@@ -20,7 +20,7 @@ import {
   TrashIcon,
   UserSquareIcon,
 } from "@phosphor-icons/react";
-import { SelectDate } from "@/components/select-date";
+import { SelectDate } from "@/components/selectDate";
 
 export function Components() {
   const [selectedTime, setSelectedTime] = useState<string | undefined>("08:00");

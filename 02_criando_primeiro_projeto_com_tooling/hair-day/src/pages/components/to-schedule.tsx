@@ -1,7 +1,7 @@
 import logoImg from "@/assets/logo.svg";
 import { Paragraph } from "@/components/paragraph";
 import { RadioChipGroup } from "@/components/radioSelect";
-import { SelectDate } from "@/components/select-date";
+import { SelectDate } from "@/components/selectDate";
 import { Title } from "@/components/title";
 import { Button } from "@/components/ui/button";
 import {
@@ -36,7 +36,7 @@ export function ToSchedule() {
               <Title size="md" className="text-gray-200">
                 Data
               </Title>
-              <SelectDate />
+              <SelectDate value={new Date()}/>
             </div>
 
             <div className="space-y-2">
