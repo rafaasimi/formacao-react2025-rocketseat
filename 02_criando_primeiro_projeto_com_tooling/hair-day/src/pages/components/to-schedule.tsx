@@ -10,10 +10,30 @@ import {
   InputGroupInput,
 } from "@/components/ui/input-group";
 import { UserSquareIcon } from "@phosphor-icons/react";
-import { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import { scheduleNewFormSchema, type ScheduleNewFormSchema } from "./schemas";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-export function ToSchedule() {
-  const [scheduleHour, setScheduleHour] = useState<string>("");
+interface ToScheduleProps {
+  createSchedule: (payload: ScheduleNewFormSchema) => void;
+}
+
+export function ToSchedule({ createSchedule }: ToScheduleProps) {
+  const { register, handleSubmit, formState, control, reset } =
+    useForm<ScheduleNewFormSchema>({
+      resolver: zodResolver(scheduleNewFormSchema),
+      defaultValues: {
+        id: crypto.randomUUID(),
+        name: "",
+        date: new Date(),
+        time: "",
+      },
+    });
+
+  function handleSubmitForm(payload: ScheduleNewFormSchema) {
+    createSchedule(payload);
+    reset();
+  }
 
   return (
     <div className="bg-gray-700 rounded-[12px] p-20 relative">
@@ -30,13 +50,22 @@ export function ToSchedule() {
           </Paragraph>
         </div>
 
-        <form>
+        <form onSubmit={handleSubmit(handleSubmitForm)}>
           <div className="space-y-8">
             <div className="space-y-2">
               <Title size="md" className="text-gray-200">
                 Data
               </Title>
-              <SelectDate value={new Date()}/>
+              <Controller
+                name="date"
+                control={control}
+                render={({ field }) => (
+                  <SelectDate value={field.value} onChange={field.onChange} />
+                )}
+              />
+              <Paragraph size="sm" className="text-red-600">
+                {formState.errors.date?.message}
+              </Paragraph>
             </div>
 
             <div className="space-y-2">
@@ -44,57 +73,69 @@ export function ToSchedule() {
                 Horários
               </Title>
 
-              <div className="space-y-2">
-                <Paragraph as="span" size="sm" className="text-gray-300">
-                  Manhã
-                </Paragraph>
-                <RadioChipGroup
-                  name="select-schedule-hour"
-                  value={scheduleHour}
-                  onChange={(value) => setScheduleHour(value)}
-                  options={[
-                    { value: "09:00", label: "09:00" },
-                    { value: "10:00", label: "10:00" },
-                    { value: "11:00", label: "11:00" },
-                    { value: "12:00", label: "12:00" },
-                  ]}
-                />
-              </div>
+              <Controller
+                name="time"
+                control={control}
+                render={({ field }) => (
+                  <div className="space-y-6">
+                    <div className="space-y-2">
+                      <Paragraph as="span" size="sm" className="text-gray-300">
+                        Manhã
+                      </Paragraph>
+                      <RadioChipGroup
+                        name="time"
+                        value={field.value}
+                        onChange={field.onChange}
+                        options={[
+                          { value: "09:00", label: "09:00" },
+                          { value: "10:00", label: "10:00" },
+                          { value: "11:00", label: "11:00" },
+                          { value: "12:00", label: "12:00" },
+                        ]}
+                      />
+                    </div>
 
-              <div className="space-y-2">
-                <Paragraph as="span" size="sm" className="text-gray-300">
-                  Tarde
-                </Paragraph>
-                <RadioChipGroup
-                  name="select-schedule-hour"
-                  value={scheduleHour}
-                  onChange={(value) => setScheduleHour(value)}
-                  options={[
-                    { value: "13:00", label: "13:00" },
-                    { value: "14:00", label: "14:00" },
-                    { value: "15:00", label: "15:00" },
-                    { value: "16:00", label: "16:00" },
-                    { value: "17:00", label: "17:00" },
-                    { value: "18:00", label: "18:00" },
-                  ]}
-                />
-              </div>
+                    <div className="space-y-2">
+                      <Paragraph as="span" size="sm" className="text-gray-300">
+                        Tarde
+                      </Paragraph>
+                      <RadioChipGroup
+                        name="time"
+                        value={field.value}
+                        onChange={field.onChange}
+                        options={[
+                          { value: "13:00", label: "13:00" },
+                          { value: "14:00", label: "14:00" },
+                          { value: "15:00", label: "15:00" },
+                          { value: "16:00", label: "16:00" },
+                          { value: "17:00", label: "17:00" },
+                          { value: "18:00", label: "18:00" },
+                        ]}
+                      />
+                    </div>
 
-              <div className="space-y-2">
-                <Paragraph as="span" size="sm" className="text-gray-300">
-                  Noite
-                </Paragraph>
-                <RadioChipGroup
-                  name="select-schedule-hour"
-                  value={scheduleHour}
-                  onChange={(value) => setScheduleHour(value)}
-                  options={[
-                    { value: "19:00", label: "19:00" },
-                    { value: "20:00", label: "20:00" },
-                    { value: "21:00", label: "21:00" },
-                  ]}
-                />
-              </div>
+                    <div className="space-y-2">
+                      <Paragraph as="span" size="sm" className="text-gray-300">
+                        Noite
+                      </Paragraph>
+                      <RadioChipGroup
+                        name="time"
+                        value={field.value}
+                        onChange={field.onChange}
+                        options={[
+                          { value: "19:00", label: "19:00" },
+                          { value: "20:00", label: "20:00" },
+                          { value: "21:00", label: "21:00" },
+                        ]}
+                      />
+                    </div>
+                  </div>
+                )}
+              />
+
+              <Paragraph size="sm" className="text-red-600">
+                {formState.errors.time?.message}
+              </Paragraph>
             </div>
 
             <div className="space-y-2">
@@ -102,11 +143,18 @@ export function ToSchedule() {
                 Cliente
               </Title>
               <InputGroup>
-                <InputGroupInput type="text" placeholder="Nome do cliente" />
+                <InputGroupInput
+                  type="text"
+                  placeholder="Nome do cliente"
+                  {...register("name")}
+                />
                 <InputGroupAddon>
                   <UserSquareIcon />
                 </InputGroupAddon>
               </InputGroup>
+              <Paragraph size="sm" className="text-red-600">
+                {formState.errors.name?.message}
+              </Paragraph>
             </div>
           </div>
 

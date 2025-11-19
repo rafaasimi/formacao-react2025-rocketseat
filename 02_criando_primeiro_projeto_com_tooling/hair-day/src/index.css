@@ -21,6 +21,8 @@
   --color-yellow: #B8952E;
   --color-yellow-dark: #846F2E;
 
+  --color-red-600: oklch(57.7% 0.245 27.325);
+
   --font-sans: "Catamaran", sans-serif;
 }
 
@@ -68,7 +70,7 @@ body {
 }
 
 :root {
-  --radius: 0.625rem;
+  --radius: .625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.141 0.005 285.823);
   --card: oklch(1 0 0);

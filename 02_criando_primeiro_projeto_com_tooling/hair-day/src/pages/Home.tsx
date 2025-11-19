@@ -1,13 +1,16 @@
 import { SCHEDULE, type Schedule } from "@/utils/mocks/schedule";
 import { MySchedule } from "./components/my-schedule";
 import { ToSchedule } from "./components/to-schedule";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import type { ScheduleNewFormSchema } from "./components/schemas";
 
 export function Home() {
   const [filteredSchedules, setFilteredSchedules] =
     useState<Schedule[]>(SCHEDULE);
 
-  function createSchedule() {}
+  function createSchedule(payload: ScheduleNewFormSchema) {
+    setFilteredSchedules((prev) => [...prev, payload]);
+  }
 
   function deleteSchedule(id: string) {
     setFilteredSchedules(
@@ -30,7 +33,7 @@ export function Home() {
 
   return (
     <div className="w-full grid grid-cols-1 md:grid-cols-[530px_1fr] gap-3">
-      <ToSchedule />
+      <ToSchedule createSchedule={createSchedule} />
       <MySchedule
         schedules={filteredSchedules}
         filterSchedules={filterSchedules}
