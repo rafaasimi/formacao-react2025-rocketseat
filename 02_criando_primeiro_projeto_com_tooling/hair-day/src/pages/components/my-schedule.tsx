@@ -2,8 +2,53 @@ import { Paragraph } from "@/components/paragraph";
 import { SelectDate } from "@/components/selectDate";
 import { TableHour } from "@/components/tableHour";
 import { Title } from "@/components/title";
+import type { Schedule } from "@/utils/mocks/schedule";
+import { useState } from "react";
 
-export function MySchedule() {
+interface MyScheduleProps {
+  schedules: Schedule[];
+  filterSchedules: (date: Date) => void;
+  deleteSchedule: (id: string) => void;
+}
+
+export function MySchedule({
+  schedules,
+  filterSchedules,
+  deleteSchedule,
+}: MyScheduleProps) {
+  const [selectDate, setSelectDate] = useState<Date>(new Date());
+
+  const morningSchedules = schedules.filter((schedule) => {
+    const [hours, minutes] = schedule.time.split(":");
+
+    if (hours >= "09" && hours <= "12") {
+      return schedule;
+    }
+  });
+
+  const afternoonSchedules = schedules.filter((schedule) => {
+    const [hours, minutes] = schedule.time.split(":");
+
+    if (hours >= "13" && hours <= "18") {
+      return schedule;
+    }
+  });
+
+  const nightSchedules = schedules.filter((schedule) => {
+    const [hours, minutes] = schedule.time.split(":");
+
+    if (hours >= "19" && hours <= "21") {
+      return schedule;
+    }
+  });
+
+  function handleFilterSchedule(date: Date | undefined) {
+    if (date) {
+      setSelectDate(date);
+      filterSchedules(date);
+    }
+  }
+
   return (
     <section className="md:px-28 md:py-10 space-y-8">
       <header className="flex items-start gap-3 flex-col sm:flex-row">
@@ -14,14 +59,32 @@ export function MySchedule() {
           </Paragraph>
         </div>
         <div className="min-w-56">
-          <SelectDate value={new Date()} />
+          <SelectDate
+            value={selectDate}
+            onChange={(value) => handleFilterSchedule(value)}
+          />
         </div>
       </header>
 
       <main className="space-y-3">
-        <TableHour period="morning" availableInterval={[9,12]}/>
-        <TableHour period="afternoon" availableInterval={[13,18]}/>
-        <TableHour period="night" availableInterval={[19,21]}/>
+        <TableHour
+          period="morning"
+          availableInterval={[9, 12]}
+          schedules={morningSchedules}
+          deleteSchedule={deleteSchedule}
+        />
+        <TableHour
+          period="afternoon"
+          availableInterval={[13, 18]}
+          schedules={afternoonSchedules}
+          deleteSchedule={deleteSchedule}
+        />
+        <TableHour
+          period="night"
+          availableInterval={[19, 21]}
+          schedules={nightSchedules}
+          deleteSchedule={deleteSchedule}
+        />
       </main>
     </section>
   );

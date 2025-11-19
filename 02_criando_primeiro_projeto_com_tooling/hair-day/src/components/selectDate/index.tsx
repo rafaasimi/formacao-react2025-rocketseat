@@ -47,10 +47,6 @@ export function SelectDate({ value, onChange }: SelectDateProps) {
             selected={date}
             captionLayout="dropdown"
             onSelect={handleSelect}
-            disabled={[
-              { before: new Date() },
-              (date) => [0, 6].includes(date.getDay()), // 0 = Domingo, 6 = Sábado
-            ]}
             locale={ptBR}
           />
         </PopoverContent>

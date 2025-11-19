@@ -7,51 +7,22 @@ import {
 import { Paragraph } from "../paragraph";
 import { ButtonIcon } from "../buttonIcon";
 import { Title } from "../title";
+import type { Schedule } from "@/utils/mocks/schedule";
 
 type Period = "morning" | "afternoon" | "night";
 
 interface TableHourProps {
-  schedules?: {
-    id: string;
-    hour: string;
-    name: string;
-    date: Date;
-  };
+  schedules?: Schedule[];
   availableInterval: [number, number];
   period: Period;
+  deleteSchedule: (id: string) => void;
 }
-
-const MOCK: NonNullable<TableHourProps["schedules"]>[] = [
-  {
-    id: "1",
-    hour: "09:00",
-    name: "João",
-    date: new Date(),
-  },
-  {
-    id: "1",
-    hour: "10:00",
-    name: "Rafael",
-    date: new Date(),
-  },
-  {
-    id: "1",
-    hour: "11:00",
-    name: "Luiz",
-    date: new Date(),
-  },
-  {
-    id: "1",
-    hour: "12:00",
-    name: "Patricia",
-    date: new Date(),
-  },
-];
 
 export function TableHour({
   schedules,
   availableInterval,
   period,
+  deleteSchedule,
 }: TableHourProps) {
   function getIconPeriod() {
     if (period === "morning") {
@@ -73,6 +44,10 @@ export function TableHour({
     }
   }
 
+  function handleDeleteSchedule(id: string) {
+    deleteSchedule(id);
+  }
+
   return (
     <div className="rounded-[8px] border border-gray-600 divide-y divide-gray-600 divide-solid">
       <header className="flex items-center gap-3 px-5 py-3">
@@ -89,17 +64,24 @@ export function TableHour({
       </header>
 
       <div className="p-5 space-y-0.5">
-        {MOCK.length > 0 ? (
-          MOCK.map((schedule) => (
+        {schedules && schedules.length > 0 ? (
+          schedules.map((schedule) => (
             <div key={schedule.id} className="flex items-center gap-5">
               <Title size="md" className="text-gray-200 w-12 text-center">
-                {schedule.hour}
+                {schedule.time}
               </Title>
               <Paragraph size="md" className="text-gray-200 flex-1">
                 {schedule.name}
               </Paragraph>
-              <span>
-                <ButtonIcon icon={<TrashIcon size="1rem" />} />
+              <span className="leading-0">
+                <ButtonIcon
+                  icon={
+                    <TrashIcon
+                      size="1rem"
+                      onClick={() => handleDeleteSchedule(schedule.id)}
+                    />
+                  }
+                />
               </span>
             </div>
           ))
