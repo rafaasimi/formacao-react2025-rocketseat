@@ -1,6 +1,7 @@
 import { Button } from "../components/button";
 import { IconButton } from "../components/icon-button";
 import { MagnifyingGlassIcon } from "@phosphor-icons/react";
+import { LinkButton } from "../components/link-button";
 
 export function ComponentsList() {
   return (
@@ -27,6 +28,18 @@ export function ComponentsList() {
           </li>
           <li>
             <IconButton icon={<MagnifyingGlassIcon />} disabled />
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h2>Link Button</h2>
+        <ul className="flex gap-4">
+          <li>
+            <LinkButton label="Link" />
+          </li>
+          <li>
+            <LinkButton label="Link" active />
           </li>
         </ul>
       </div>
