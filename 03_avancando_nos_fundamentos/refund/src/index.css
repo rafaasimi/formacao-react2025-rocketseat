@@ -12,10 +12,11 @@
 
   --color-green-100: #1f8459;
   --color-green-200: #2cb178;
+
+  --font-sans: "Open Sans", sans-serif;
 }
 
-* {
-  font-family: "Open Sans", sans-serif;
+body {
   background-color: var(--color-gray-400);
   color: var(--color-gray-100);
 }
