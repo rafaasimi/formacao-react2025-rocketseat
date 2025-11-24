@@ -3,6 +3,7 @@ import { IconButton } from "../components/icon-button";
 import { MagnifyingGlassIcon } from "@phosphor-icons/react";
 import { LinkButton } from "../components/link-button";
 import { Input } from "../components/input";
+import { Select } from "@/components/select";
 
 export function ComponentsList() {
   return (
@@ -68,6 +69,15 @@ export function ComponentsList() {
               placeholder="Placeholder"
               value="Minha solicitação"
             />
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h2>Select</h2>
+        <ul className="flex gap-4">
+          <li>
+            <Select label="Título" placeholder="Placeholder" />
           </li>
         </ul>
       </div>
