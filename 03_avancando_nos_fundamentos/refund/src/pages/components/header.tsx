@@ -1,0 +1,21 @@
+import logoImg from "@/assets/logo.png";
+import { Button } from "@/components/button";
+import { LinkButton } from "@/components/link-button";
+import { Link } from "react-router";
+
+export function Header() {
+  return (
+    <header className="flex flex-col items-center justify-between gap-6 md:flex-row">
+      <img src={logoImg} alt="Refund" className="w-32 md:w-25" />
+
+      <div className="grid grid-cols-2 items-center gap-4">
+        <Link to="/">
+          <LinkButton>Solicitações de reembolso</LinkButton>
+        </Link>
+        <Link to="novo-reembolso">
+          <Button>Nova solicitação</Button>
+        </Link>
+      </div>
+    </header>
+  );
+}

@@ -1,4 +1,4 @@
-import type { ComponentProps } from "react";
+import type { ComponentProps, ReactNode } from "react";
 import { tv, type VariantProps } from "tailwind-variants";
 
 export const baseButton = tv({
@@ -28,11 +28,11 @@ export const buttonVariants = tv({
 interface ButtonProps
   extends Omit<ComponentProps<"button">, "color">,
     VariantProps<typeof buttonVariants> {
-  label: string;
+  children: ReactNode;
 }
 
 export function Button({
-  label,
+  children,
   size,
   color,
   disabled,
@@ -45,7 +45,7 @@ export function Button({
       disabled={disabled}
       {...props}
     >
-      {label}
+      {children}
     </button>
   );
 }

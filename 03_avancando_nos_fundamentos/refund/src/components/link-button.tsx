@@ -1,4 +1,4 @@
-import type { ComponentProps } from "react";
+import type { ComponentProps, ReactNode } from "react";
 import { tv, type VariantProps } from "tailwind-variants";
 import { baseButton } from "./button";
 
@@ -9,7 +9,7 @@ const linkButtonVariants = tv({
       md: "py-5 px-4 text-sm font-semibold",
     },
     color: {
-      primary: "text-green-200 hover:text-green-100",
+      primary: "text-gray-200 hover:text-green-100",
     },
     active: {
       true: "text-green-100",
@@ -24,11 +24,11 @@ const linkButtonVariants = tv({
 
 type LinkButtonProps = Omit<ComponentProps<"a">, "color"> &
   VariantProps<typeof linkButtonVariants> & {
-    label: string;
+    children: ReactNode;
   };
 
 export function LinkButton({
-  label,
+  children,
   size,
   color,
   active,
@@ -36,7 +36,7 @@ export function LinkButton({
 }: LinkButtonProps) {
   return (
     <a className={linkButtonVariants({ size, color, active })} {...props}>
-      {label}
+      {children}
     </a>
   );
 }

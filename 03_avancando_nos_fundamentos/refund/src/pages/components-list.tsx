@@ -14,10 +14,10 @@ export function ComponentsList() {
         <h2>Botão</h2>
         <ul className="flex gap-4">
           <li>
-            <Button label="Salvar" />
+            <Button>Salvar</Button>
           </li>
           <li>
-            <Button label="Salvar" disabled />
+            <Button disabled>Salvar</Button>
           </li>
         </ul>
       </div>
@@ -38,10 +38,10 @@ export function ComponentsList() {
         <h2>Link Button</h2>
         <ul className="flex gap-4">
           <li>
-            <LinkButton label="Link" />
+            <LinkButton>Link</LinkButton>
           </li>
           <li>
-            <LinkButton label="Link" active />
+            <LinkButton active>Link</LinkButton>
           </li>
         </ul>
       </div>
