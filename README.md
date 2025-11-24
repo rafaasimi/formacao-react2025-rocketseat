@@ -42,9 +42,11 @@ Este repositório contém todos os materiais e projetos desenvolvidos na [Forma�
 #### Projetos
 
 ##### ToDo
+
 <img src='.github/todo.png' />
 
 ##### HairDay
+
 <img src='.github/hair-day.png' />
 
 ### Avançando nos fundamentos
@@ -62,4 +64,10 @@ Este repositório contém todos os materiais e projetos desenvolvidos na [Forma�
 
 #### Projetos
 
+##### Gallery Plus
+
 <img src='.github/gallery-plus.png' />
+
+##### Refund
+
+<img src='.github/refund.png' />
