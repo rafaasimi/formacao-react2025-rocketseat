@@ -13,12 +13,17 @@ import { UserSquareIcon } from "@phosphor-icons/react";
 import { Controller, useForm } from "react-hook-form";
 import { scheduleNewFormSchema, type ScheduleNewFormSchema } from "./schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
+import type { Schedule } from "@/utils/mocks/schedule";
+import { useState } from "react";
 
 interface ToScheduleProps {
   createSchedule: (payload: ScheduleNewFormSchema) => void;
+  schedules: Schedule[];
 }
 
-export function ToSchedule({ createSchedule }: ToScheduleProps) {
+export function ToSchedule({ createSchedule, schedules }: ToScheduleProps) {
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
+
   const { register, handleSubmit, formState, control, reset } =
     useForm<ScheduleNewFormSchema>({
       resolver: zodResolver(scheduleNewFormSchema),
@@ -29,6 +34,18 @@ export function ToSchedule({ createSchedule }: ToScheduleProps) {
         time: "",
       },
     });
+
+  function checkTimeAvailability(time: string): boolean {
+    const selectedDateString = selectedDate?.toISOString().split("T")[0];
+
+    if (!selectedDateString) return false;
+
+    return schedules.some(
+      (schedule) =>
+        schedule.date.toISOString().split("T")[0] === selectedDateString &&
+        schedule.time === time
+    );
+  }
 
   function handleSubmitForm(payload: ScheduleNewFormSchema) {
     createSchedule(payload);
@@ -60,7 +77,13 @@ export function ToSchedule({ createSchedule }: ToScheduleProps) {
                 name="date"
                 control={control}
                 render={({ field }) => (
-                  <SelectDate value={field.value} onChange={field.onChange} />
+                  <SelectDate
+                    value={selectedDate}
+                    onChange={(date) => {
+                      setSelectedDate(date);
+                      field.onChange(date);
+                    }}
+                  />
                 )}
               />
               <Paragraph size="sm" className="text-red-600">
@@ -87,10 +110,10 @@ export function ToSchedule({ createSchedule }: ToScheduleProps) {
                         value={field.value}
                         onChange={field.onChange}
                         options={[
-                          { value: "09:00", label: "09:00" },
-                          { value: "10:00", label: "10:00" },
-                          { value: "11:00", label: "11:00" },
-                          { value: "12:00", label: "12:00" },
+                          { value: "09:00", label: "09:00", disabled: checkTimeAvailability("09:00") },
+                          { value: "10:00", label: "10:00", disabled: checkTimeAvailability("10:00") },
+                          { value: "11:00", label: "11:00", disabled: checkTimeAvailability("11:00") },
+                          { value: "12:00", label: "12:00", disabled: checkTimeAvailability("12:00") },
                         ]}
                       />
                     </div>
@@ -104,12 +127,12 @@ export function ToSchedule({ createSchedule }: ToScheduleProps) {
                         value={field.value}
                         onChange={field.onChange}
                         options={[
-                          { value: "13:00", label: "13:00" },
-                          { value: "14:00", label: "14:00" },
-                          { value: "15:00", label: "15:00" },
-                          { value: "16:00", label: "16:00" },
-                          { value: "17:00", label: "17:00" },
-                          { value: "18:00", label: "18:00" },
+                          { value: "13:00", label: "13:00", disabled: checkTimeAvailability("13:00") },
+                          { value: "14:00", label: "14:00", disabled: checkTimeAvailability("14:00") },
+                          { value: "15:00", label: "15:00", disabled: checkTimeAvailability("15:00") },
+                          { value: "16:00", label: "16:00", disabled: checkTimeAvailability("16:00") },
+                          { value: "17:00", label: "17:00", disabled: checkTimeAvailability("17:00") },
+                          { value: "18:00", label: "18:00", disabled: checkTimeAvailability("18:00") },
                         ]}
                       />
                     </div>
@@ -123,9 +146,9 @@ export function ToSchedule({ createSchedule }: ToScheduleProps) {
                         value={field.value}
                         onChange={field.onChange}
                         options={[
-                          { value: "19:00", label: "19:00" },
-                          { value: "20:00", label: "20:00" },
-                          { value: "21:00", label: "21:00" },
+                          { value: "19:00", label: "19:00", disabled: checkTimeAvailability("19:00") },
+                          { value: "20:00", label: "20:00", disabled: checkTimeAvailability("20:00") },
+                          { value: "21:00", label: "21:00", disabled: checkTimeAvailability("21:00") },
                         ]}
                       />
                     </div>

@@ -7,13 +7,13 @@ import { useState } from "react";
 
 interface MyScheduleProps {
   schedules: Schedule[];
-  filterSchedules: (date: Date) => void;
+  filterSchedule: (date: Date) => void;
   deleteSchedule: (id: string) => void;
 }
 
 export function MySchedule({
   schedules,
-  filterSchedules,
+  filterSchedule,
   deleteSchedule,
 }: MyScheduleProps) {
   const [selectDate, setSelectDate] = useState<Date>(new Date());
@@ -43,9 +43,10 @@ export function MySchedule({
   });
 
   function handleFilterSchedule(date: Date | undefined) {
-    if (date) {
+    if (date instanceof Date) {
+      console.log(date)
       setSelectDate(date);
-      filterSchedules(date);
+      filterSchedule(date);
     }
   }
 
@@ -61,7 +62,7 @@ export function MySchedule({
         <div className="min-w-56">
           <SelectDate
             value={selectDate}
-            onChange={(value) => handleFilterSchedule(value)}
+            onChange={(value) => handleFilterSchedule(value ?? new Date())}
           />
         </div>
       </header>

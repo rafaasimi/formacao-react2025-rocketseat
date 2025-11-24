@@ -5,38 +5,38 @@ import { useState } from "react";
 import type { ScheduleNewFormSchema } from "./components/schemas";
 
 export function Home() {
-  const [filteredSchedules, setFilteredSchedules] =
-    useState<Schedule[]>(SCHEDULE);
+  const [schedules, setSchedules] = useState<Schedule[]>(SCHEDULE);
+  const [date, setDate] = useState<Date>(new Date());
 
   function createSchedule(payload: ScheduleNewFormSchema) {
-    setFilteredSchedules((prev) => [...prev, payload]);
+    setSchedules((prev) => [...prev, payload]);
   }
 
   function deleteSchedule(id: string) {
-    setFilteredSchedules(
-      filteredSchedules.filter((schedule) => schedule.id !== id)
+    setSchedules((prev) =>
+      prev.filter((schedule) => schedule.id !== id)
     );
   }
 
-  function filterSchedules(date: Date) {
-    setFilteredSchedules(
-      SCHEDULE.filter((schedule) => {
-        const scheduleDate = new Date(schedule.date);
-        return (
-          scheduleDate.getFullYear() === date.getFullYear() &&
-          scheduleDate.getMonth() === date.getMonth() &&
-          scheduleDate.getDate() === date.getDate()
-        );
-      })
-    );
+  function filterSchedule(date: Date) {
+    setDate(date);
   }
+
+  const filteredSchedules = schedules.filter((schedule) => {
+    const scheduleDate = new Date(schedule.date);
+    return (
+      scheduleDate.getFullYear() === date.getFullYear() &&
+      scheduleDate.getMonth() === date.getMonth() &&
+      scheduleDate.getDate() === date.getDate()
+    );
+  });
 
   return (
     <div className="w-full grid grid-cols-1 md:grid-cols-[530px_1fr] gap-3">
-      <ToSchedule createSchedule={createSchedule} />
+      <ToSchedule schedules={filteredSchedules} createSchedule={createSchedule} />
       <MySchedule
         schedules={filteredSchedules}
-        filterSchedules={filterSchedules}
+        filterSchedule={filterSchedule}
         deleteSchedule={deleteSchedule}
       />
     </div>
