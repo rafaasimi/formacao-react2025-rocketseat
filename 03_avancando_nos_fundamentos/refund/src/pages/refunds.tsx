@@ -1,6 +1,7 @@
 import { IconButton } from "@/components/icon-button";
 import { Input } from "@/components/input";
 import { MagnifyingGlassIcon } from "@phosphor-icons/react";
+import { RefundsTableList } from "./components/refunds-table-list";
 
 export function Refunds() {
   return (
@@ -14,7 +15,9 @@ export function Refunds() {
         </div>
       </div>
 
-      <div>lista</div>
+      <div>
+        <RefundsTableList />
+      </div>
     </main>
   );
 }

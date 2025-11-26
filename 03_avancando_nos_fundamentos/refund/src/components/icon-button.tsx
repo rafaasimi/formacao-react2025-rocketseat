@@ -6,6 +6,7 @@ const iconButtonVariants = tv({
   extend: baseButton,
   variants: {
     size: {
+      sm: "p-1 text-[1.5rem]",
       md: "p-3 text-2xl",
     },
     color: {
