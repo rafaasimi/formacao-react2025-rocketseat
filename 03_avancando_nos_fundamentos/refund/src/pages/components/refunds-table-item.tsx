@@ -25,7 +25,7 @@ const CATEGORIES = {
     icon: <WrenchIcon />,
     label: "Serviços",
   },
-  others: {
+  other: {
     icon: <ReceiptIcon />,
     label: "Outros",
   },

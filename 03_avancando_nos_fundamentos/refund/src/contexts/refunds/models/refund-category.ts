@@ -3,4 +3,4 @@ export type RefundCategory =
   | "hosting"
   | "transport"
   | "services"
-  | "others";
+  | "other";
