@@ -3,7 +3,7 @@ import { useState, type ComponentProps } from "react";
 import { tv, type VariantProps } from "tailwind-variants";
 
 const inputLabelVariants = tv({
-  base: "uppercase ",
+  base: "uppercase",
   variants: {
     size: {
       md: "text-[.625rem]",
@@ -19,10 +19,10 @@ const inputLabelVariants = tv({
 });
 
 const inputVariants = tv({
-  base: "rounded-[8px] outline-none border border-gray-300 border-in",
+  base: "rounded-[8px] outline-none border border-gray-300 w-full",
   variants: {
     size: {
-      md: "p-[.9375rem] px-4 text-sm font-normal",
+      md: "p-[.9375rem] px-4 text-sm font-normal min-h-auto h-12",
     },
     color: {
       primary:

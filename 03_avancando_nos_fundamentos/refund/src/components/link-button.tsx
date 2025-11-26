@@ -29,13 +29,17 @@ type LinkButtonProps = Omit<ComponentProps<"a">, "color"> &
 
 export function LinkButton({
   children,
+  className,
   size,
   color,
   active,
   ...props
 }: LinkButtonProps) {
   return (
-    <a className={linkButtonVariants({ size, color, active })} {...props}>
+    <a
+      className={linkButtonVariants({ size, color, active, className })}
+      {...props}
+    >
       {children}
     </a>
   );

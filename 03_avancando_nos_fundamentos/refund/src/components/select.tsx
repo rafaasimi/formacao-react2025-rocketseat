@@ -10,10 +10,10 @@ import {
 } from "./ui/select";
 
 const selectLabelVariants = tv({
-  base: "uppercase ",
+  base: "uppercase",
   variants: {
     size: {
-      md: "text-[.625rem]",
+      md: "text-[10px]",
     },
     isFocused: {
       true: "font-bold text-green-100",
@@ -26,14 +26,17 @@ const selectLabelVariants = tv({
 });
 
 const inputVariants = tv({
-  base: "rounded-[8px] outline-none border border-gray-300 ",
+  base: "rounded-[.5rem] outline-none border border-gray-300 w-full",
   variants: {
     size: {
-      md: "p-4 text-sm font-normal",
+      md: "p-4 text-sm font-normal min-h-12",
     },
     color: {
       primary:
-        "placeholder:text-gray-200 text-gray-100 border-[1.5px] focus:border-green-100 caret-green-100",
+        "placeholder:text-gray-200 text-gray-100 border-[.0938rem] focus:border-green-100 caret-green-100",
+    },
+    disabled: {
+      true: "pointer-events-none",
     },
   },
   defaultVariants: {
@@ -50,7 +53,14 @@ interface SelectProps
   placeholder?: string;
 }
 
-export function Select({ size, label, placeholder, ...props }: SelectProps) {
+export function Select({
+  size,
+  disabled,
+  color,
+  label,
+  placeholder,
+  ...props
+}: SelectProps) {
   const [isFocused, setIsFocused] = useState(false);
 
   return (
@@ -66,7 +76,7 @@ export function Select({ size, label, placeholder, ...props }: SelectProps) {
 
       <SelectRoot defaultValue="alimentacao">
         <SelectTrigger
-          className="min-h-[48px] w-[180px]"
+          className={inputVariants({ size, color, disabled })}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
         >
