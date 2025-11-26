@@ -1,4 +1,4 @@
-import type { Refund } from "@/models/refund";
+import type { Refund } from "@/contexts/refunds/models/refund";
 import {
   BedIcon,
   ForkKnifeIcon,

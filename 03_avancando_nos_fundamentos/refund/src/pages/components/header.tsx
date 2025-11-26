@@ -11,12 +11,10 @@ export function Header() {
       </Link>
 
       <div className="flex items-center gap-4">
-        <Link to="/">
-          <LinkButton>Solicitações de reembolso</LinkButton>
-        </Link>
-        <Link to="novo-reembolso">
+        <LinkButton to="/">Solicitações de reembolso</LinkButton>
+        <LinkButton to="novo-reembolso">
           <Button>Nova solicitação</Button>
-        </Link>
+        </LinkButton>
       </div>
     </header>
   );

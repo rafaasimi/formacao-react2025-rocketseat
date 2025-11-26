@@ -5,23 +5,28 @@ import { ComponentsList } from "./pages/components-list";
 import { NewRefundRequest } from "./pages/new-refund-request";
 import { RefundDetail } from "./pages/refund-detail";
 import { RefundRequestSucess } from "./pages/components/refund-request-sucess";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 function App() {
+  const queryClient = new QueryClient();
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<Layout />}>
-          <Route index element={<Refunds />} />
-          <Route path="novo-reembolso" element={<NewRefundRequest />} />
-          <Route
-            path="novo-reembolso/sucesso"
-            element={<RefundRequestSucess />}
-          />
-          <Route path="reembolso/:id" element={<RefundDetail />} />
-          <Route path="componentes" element={<ComponentsList />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route index element={<Refunds />} />
+            <Route path="novo-reembolso" element={<NewRefundRequest />} />
+            <Route
+              path="novo-reembolso/sucesso"
+              element={<RefundRequestSucess />}
+            />
+            <Route path="reembolso/:id" element={<RefundDetail />} />
+            <Route path="componentes" element={<ComponentsList />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </QueryClientProvider>
   );
 }
 
