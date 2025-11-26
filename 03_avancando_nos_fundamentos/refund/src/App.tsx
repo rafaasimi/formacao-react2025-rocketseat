@@ -4,6 +4,7 @@ import { Refunds } from "./pages/refunds";
 import { ComponentsList } from "./pages/components-list";
 import { NewRefundRequest } from "./pages/new-refund-request";
 import { RefundDetail } from "./pages/refund-detail";
+import { RefundRequestSucess } from "./pages/components/refund-request-sucess";
 
 function App() {
   return (
@@ -12,6 +13,10 @@ function App() {
         <Route element={<Layout />}>
           <Route index element={<Refunds />} />
           <Route path="novo-reembolso" element={<NewRefundRequest />} />
+          <Route
+            path="novo-reembolso/sucesso"
+            element={<RefundRequestSucess />}
+          />
           <Route path="reembolso/:id" element={<RefundDetail />} />
           <Route path="componentes" element={<ComponentsList />} />
         </Route>
