@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import type { ComponentProps, ReactNode } from "react";
 import { tv, type VariantProps } from "tailwind-variants";
 
@@ -33,6 +34,7 @@ interface ButtonProps
 
 export function Button({
   children,
+  className,
   size,
   color,
   disabled,
@@ -41,7 +43,7 @@ export function Button({
   return (
     <button
       type="button"
-      className={buttonVariants({ size, color, disabled })}
+      className={cn(buttonVariants({ size, color, disabled }), className)}
       disabled={disabled}
       {...props}
     >

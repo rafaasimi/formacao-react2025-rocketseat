@@ -6,9 +6,11 @@ import { Link } from "react-router";
 export function Header() {
   return (
     <header className="flex flex-col items-center justify-between gap-6 md:flex-row">
-      <img src={logoImg} alt="Refund" className="w-32 md:w-25" />
+      <Link to="/">
+        <img src={logoImg} alt="Refund" className="w-32 md:w-25" />
+      </Link>
 
-      <div className="grid grid-cols-2 items-center gap-4">
+      <div className="flex items-center gap-4">
         <Link to="/">
           <LinkButton>Solicitações de reembolso</LinkButton>
         </Link>

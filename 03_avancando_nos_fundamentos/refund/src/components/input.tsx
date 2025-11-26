@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import { useState, type ComponentProps } from "react";
 import { tv, type VariantProps } from "tailwind-variants";
 
@@ -18,10 +19,10 @@ const inputLabelVariants = tv({
 });
 
 const inputVariants = tv({
-  base: "rounded-[8px] outline-none border border-gray-300 ",
+  base: "rounded-[8px] outline-none border border-gray-300 border-in",
   variants: {
     size: {
-      md: "p-4 text-sm font-normal",
+      md: "p-[.9375rem] px-4 text-sm font-normal",
     },
     color: {
       primary:
@@ -41,11 +42,11 @@ interface InputProps
   label?: string;
 }
 
-export function Input({ size, label, ...props }: InputProps) {
+export function Input({ size, label, className, ...props }: InputProps) {
   const [isFocused, setIsFocused] = useState(false);
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className={cn("flex flex-col gap-2", className)}>
       {label && (
         <label
           htmlFor={props.id}
