@@ -7,6 +7,7 @@ import { RefundDetail } from "./pages/refund-detail";
 import { RefundRequestSucess } from "./pages/components/refund-request-sucess";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { NuqsAdapter } from "nuqs/adapters/react-router/v7";
+import { Toaster } from "./components/ui/sonner";
 
 function App() {
   const queryClient = new QueryClient();
@@ -14,6 +15,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <NuqsAdapter>
+        <Toaster />
         <BrowserRouter>
           <Routes>
             <Route element={<Layout />}>

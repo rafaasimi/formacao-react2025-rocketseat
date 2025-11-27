@@ -1,5 +1,6 @@
 import { api } from "@/helpers/api";
 import type { ReceiptResponse } from "../models/receipt";
+import { toast } from "sonner";
 
 export function useReceipt() {
   async function createReceipt(file: File) {
@@ -13,8 +14,11 @@ export function useReceipt() {
         },
       });
 
+      toast.success("Comprovante carregado com sucesso!");
+
       return data;
     } catch (error) {
+      toast.error("Erro ao carregar comprovante!");
       throw error;
     }
   }
@@ -30,8 +34,11 @@ export function useReceipt() {
       } else {
         window.open(data.url, "_blank");
       }
+
+      toast.success("Comprovante baixado com sucesso!");
     } catch (error) {
-      console.error("Erro ao baixar comprovante:", error);
+      toast.error("Erro ao baixar comprovante!");
+      throw error;
     }
   }
 

@@ -1,6 +1,7 @@
 import { api, fetcher } from "@/helpers/api";
 import type { Refund, RefundRequest, RefundsResponse } from "../models/refund";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 export function useRefund(refundId?: string) {
   const queryClient = useQueryClient();
@@ -22,9 +23,12 @@ export function useRefund(refundId?: string) {
         },
       });
 
+      toast.success("Reembolso criado com sucesso!");
+
       return data;
     } catch (error) {
-      console.error("Erro ao criar reembolso:", error);
+      toast.error("Erro ao criar reembolso!");
+      throw error;
     }
   }
 
@@ -32,8 +36,10 @@ export function useRefund(refundId?: string) {
     try {
       await api.delete(`/refunds/${refundId}`);
       queryClient.invalidateQueries({ queryKey: ["refunds"] });
+      toast.success("Reembolso excluído com sucesso!");
     } catch (error) {
-      console.error("Erro ao excluir reembolso:", error);
+      toast.error("Erro ao excluir reembolso!");
+      throw error;
     }
   }
 
