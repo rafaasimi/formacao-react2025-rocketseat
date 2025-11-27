@@ -8,6 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
+import { REFUND_CATEGORIES } from "@/contexts/refunds/models/refund-category";
 
 const selectLabelVariants = tv({
   base: "uppercase",
@@ -51,6 +52,7 @@ interface SelectProps
     VariantProps<typeof inputVariants> {
   label?: string;
   placeholder?: string;
+  defaultValue?: string;
 }
 
 export function Select({
@@ -59,6 +61,7 @@ export function Select({
   color,
   label,
   placeholder,
+  defaultValue = REFUND_CATEGORIES[0],
   ...props
 }: SelectProps) {
   const [isFocused, setIsFocused] = useState(false);
@@ -74,7 +77,7 @@ export function Select({
         </label>
       )}
 
-      <SelectRoot defaultValue="alimentacao">
+      <SelectRoot defaultValue={defaultValue}>
         <SelectTrigger
           className={inputVariants({ size, color, disabled })}
           onFocus={() => setIsFocused(true)}
@@ -84,11 +87,11 @@ export function Select({
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            <SelectItem value="alimentacao">Alimentação</SelectItem>
-            <SelectItem value="hospedagem">Hospedagem</SelectItem>
-            <SelectItem value="transporte">Transporte</SelectItem>
-            <SelectItem value="servicos">Serviços</SelectItem>
-            <SelectItem value="outros">Outros</SelectItem>
+            <SelectItem value="food">Alimentação</SelectItem>
+            <SelectItem value="hosting">Hospedagem</SelectItem>
+            <SelectItem value="transport">Transporte</SelectItem>
+            <SelectItem value="services">Serviços</SelectItem>
+            <SelectItem value="other">Outros</SelectItem>
           </SelectGroup>
         </SelectContent>
       </SelectRoot>

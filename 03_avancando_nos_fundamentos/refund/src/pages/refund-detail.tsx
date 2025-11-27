@@ -14,74 +14,115 @@ import {
 } from "@/components/ui/dialog";
 import { FileIcon } from "@phosphor-icons/react";
 import { DialogClose } from "@radix-ui/react-dialog";
-import { useState } from "react";
+import { useRefund } from "@/contexts/refunds/hooks/use-refund";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router";
 
 export function RefundDetail() {
+  const navigate = useNavigate();
+  const params = useParams();
+  const { refund, isLoadingRefund } = useRefund(params.id);
+
   const [modalOpen, setModalOpen] = useState(false);
 
-  function handleSubmitModal() {
+  function handleDeleteRefund() {
     console.log("enviei modal");
     setModalOpen(false);
   }
 
+  useEffect(() => {
+    if (!params.id) {
+      navigate("/");
+    }
+  }, [params.id, navigate]);
+
   return (
-    <div className="mx-auto max-w-lg space-y-10 rounded-2xl bg-gray-500 p-10">
-      <div className="space-y-3">
-        <h1 className="text-xl font-bold text-gray-100">
-          Solicitação de reembolso
-        </h1>
-        <p className="text-sm text-gray-200">
-          Dados da despesa para solicitar reembolso.
-        </p>
-      </div>
+    <>
+      {isLoadingRefund && <div>Carregando...</div>}
 
-      <form className="space-y-8">
-        <Input label="Nome da solicitação" value="Café da manhã" disabled />
-
-        <div className="grid grid-cols-2 items-start gap-4">
-          <Select label="Categoria" value="alimentacao" disabled />
-          <Input
-            label="Valor"
-            value={new Intl.NumberFormat("pt-BR", {
-              style: "decimal",
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 2,
-            }).format(18.9)}
-            disabled
-          />
+      {!isLoadingRefund && !refund && (
+        <div className="mx-auto max-w-lg space-y-10 rounded-2xl bg-gray-500 p-10 text-center text-gray-100">
+          <div className="space-y-3">
+            <h1 className="text-xl font-bold text-gray-100">
+              Reembolso não encontrado.
+            </h1>
+            <p className="text-sm text-gray-200">
+              Verifique o ID da solicitação e tente novamente.
+            </p>
+          </div>
+          <Button onClick={() => navigate("/")}>
+            Voltar para a lista de reembolsos
+          </Button>
         </div>
+      )}
 
-        <div className="space-y-3">
-          <LinkButton className="flex items-center justify-center gap-2">
-            <FileIcon className="text-lg" />
-            Abrir comprovante
-          </LinkButton>
+      {!isLoadingRefund && !!refund && (
+        <div className="mx-auto max-w-lg space-y-10 rounded-2xl bg-gray-500 p-10">
+          <div className="space-y-3">
+            <h1 className="text-xl font-bold text-gray-100">
+              Solicitação de reembolso
+            </h1>
+            <p className="text-sm text-gray-200">
+              Dados da despesa para solicitar reembolso.
+            </p>
+          </div>
 
-          <Dialog open={modalOpen} onOpenChange={setModalOpen}>
-            <DialogTrigger asChild>
-              <Button className="w-full">Excluir</Button>
-            </DialogTrigger>
-            <DialogOverlay className="fixed inset-0 z-50 bg-gray-100/80" />
-            <DialogContent className="space-y-6 p-10">
-              <DialogHeader className="space-y-3">
-                <DialogTitle className="text-xl font-bold text-gray-100">
-                  Excluir solicitação
-                </DialogTitle>
-                <DialogDescription className="text-sm text-gray-200">
-                  Tem certeza que deseja excluir essa solicitação? Essa ação é
-                  irreversível.
-                </DialogDescription>
-              </DialogHeader>
-              <DialogFooter className="mb-0">
-                <DialogClose asChild>
-                  <LinkButton>Cancelar</LinkButton>
-                </DialogClose>
-                <Button onClick={handleSubmitModal}>Confirmar</Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
+          <form className="space-y-8">
+            <Input label="Nome da solicitação" value={refund.title} disabled />
+
+            <div className="grid grid-cols-2 items-start gap-4">
+              <Select
+                label="Categoria"
+                defaultValue={refund.category}
+                disabled
+              />
+              <Input
+                label="Valor"
+                value={new Intl.NumberFormat("pt-BR", {
+                  style: "decimal",
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                }).format(refund.value)}
+                disabled
+              />
+            </div>
+
+            <div className="space-y-3">
+              <LinkButton
+                className="flex w-full items-center justify-center gap-2"
+                type="button"
+              >
+                <FileIcon className="text-lg" />
+                Abrir comprovante
+              </LinkButton>
+
+              <Dialog open={modalOpen} onOpenChange={setModalOpen}>
+                <DialogTrigger asChild>
+                  <Button className="w-full">Excluir</Button>
+                </DialogTrigger>
+                <DialogOverlay className="fixed inset-0 z-50 bg-gray-100/80" />
+                <DialogContent className="space-y-6 p-10">
+                  <DialogHeader className="space-y-3">
+                    <DialogTitle className="text-xl font-bold text-gray-100">
+                      Excluir solicitação
+                    </DialogTitle>
+                    <DialogDescription className="text-sm text-gray-200">
+                      Tem certeza que deseja excluir essa solicitação? Essa ação
+                      é irreversível.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <DialogFooter className="mb-0">
+                    <DialogClose asChild>
+                      <LinkButton>Cancelar</LinkButton>
+                    </DialogClose>
+                    <Button onClick={handleDeleteRefund}>Confirmar</Button>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
+            </div>
+          </form>
         </div>
-      </form>
-    </div>
+      )}
+    </>
   );
 }

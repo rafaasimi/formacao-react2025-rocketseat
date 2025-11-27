@@ -1,7 +1,6 @@
 import type { ComponentProps, ReactNode } from "react";
 import { tv, type VariantProps } from "tailwind-variants";
 import { baseButton } from "./button";
-import { Link } from "react-router";
 
 const linkButtonVariants = tv({
   extend: baseButton,
@@ -23,25 +22,30 @@ const linkButtonVariants = tv({
   },
 });
 
-type LinkButtonProps = ComponentProps<typeof Link> &
-  VariantProps<typeof linkButtonVariants> & {
-    children: ReactNode;
-  };
+type LinkButtonProps<T extends React.ElementType = "button"> =
+  ComponentProps<T> &
+    VariantProps<typeof linkButtonVariants> & {
+      as?: T;
+      children: ReactNode;
+    };
 
-export function LinkButton({
+export function LinkButton<T extends React.ElementType = "button">({
   children,
   className,
   size,
   color,
   active,
+  as,
   ...props
-}: LinkButtonProps) {
+}: LinkButtonProps<T>) {
+  const Component = as || "button";
+
   return (
-    <Link
+    <Component
       className={linkButtonVariants({ size, color, active, className })}
-      {...props}
+      {...(props as React.ComponentPropsWithoutRef<T>)}
     >
       {children}
-    </Link>
+    </Component>
   );
 }

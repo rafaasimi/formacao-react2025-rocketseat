@@ -11,7 +11,7 @@ import { Link } from "react-router";
 const CATEGORIES = {
   food: {
     icon: <ForkKnifeIcon />,
-    label: "Alimentos",
+    label: "Alimentação",
   },
   hosting: {
     icon: <BedIcon />,
@@ -37,7 +37,7 @@ interface RefundTableItemProps {
 
 export function RefundsTableItem({ refund }: RefundTableItemProps) {
   return (
-    <Link to={`reembolso/${refund.receipt}`} className="group">
+    <Link to={`reembolso/${refund.id}`} className="group">
       <div className="flex items-center gap-3 transition-[margin-left] duration-200 group-hover:ml-1.5">
         <div className="rounded-full bg-gray-400 p-2 text-[1.125rem] text-green-100">
           {CATEGORIES[refund.category].icon}
