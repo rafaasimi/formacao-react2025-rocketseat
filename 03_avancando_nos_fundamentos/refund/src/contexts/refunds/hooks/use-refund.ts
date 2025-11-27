@@ -1,8 +1,10 @@
 import { api, fetcher } from "@/helpers/api";
 import type { Refund, RefundRequest, RefundsResponse } from "../models/refund";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 export function useRefund(refundId?: string) {
+  const queryClient = useQueryClient();
+
   const { data, isLoading: isLoadingRefund } = useQuery<Refund>({
     queryKey: ["refunds", refundId],
     queryFn: async () => {
@@ -26,9 +28,19 @@ export function useRefund(refundId?: string) {
     }
   }
 
+  async function deleteRefund(refundId: string) {
+    try {
+      await api.delete(`/refunds/${refundId}`);
+      queryClient.invalidateQueries({ queryKey: ["refunds"] });
+    } catch (error) {
+      console.error("Erro ao excluir reembolso:", error);
+    }
+  }
+
   return {
     createRefund,
     refund: data,
     isLoadingRefund,
+    deleteRefund,
   };
 }

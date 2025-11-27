@@ -22,14 +22,14 @@ import { useReceipt } from "@/contexts/receipts/hooks/use-receipt";
 export function RefundDetail() {
   const navigate = useNavigate();
   const params = useParams();
-  const { refund, isLoadingRefund } = useRefund(params.id);
+  const { refund, isLoadingRefund, deleteRefund } = useRefund(params.id);
   const { downloadReceipt } = useReceipt();
 
   const [modalOpen, setModalOpen] = useState(false);
 
-  function handleDeleteRefund() {
-    console.log("enviei modal");
-    setModalOpen(false);
+  function handleDeleteRefund(refundId: string) {
+    deleteRefund(refundId);
+    navigate("/");
   }
 
   function handleDownloadReceipt() {
@@ -124,7 +124,9 @@ export function RefundDetail() {
                     <DialogClose asChild>
                       <LinkButton>Cancelar</LinkButton>
                     </DialogClose>
-                    <Button onClick={handleDeleteRefund}>Confirmar</Button>
+                    <Button onClick={() => handleDeleteRefund(refund.id)}>
+                      Confirmar
+                    </Button>
                   </DialogFooter>
                 </DialogContent>
               </Dialog>
