@@ -1,3 +1,7 @@
+export type ReceiptResponse = {
+  receipt: Receipt;
+};
+
 export interface Receipt {
   id: string;
   originalFilename: string;

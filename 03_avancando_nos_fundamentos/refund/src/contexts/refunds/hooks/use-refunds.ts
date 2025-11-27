@@ -1,6 +1,6 @@
 import { fetcher } from "@/helpers/api";
 import { useQuery } from "@tanstack/react-query";
-import type { Refund } from "../models/refund";
+import type { RefundsResponse } from "../models/refund";
 import { createSerializer, parseAsString, useQueryState } from "nuqs";
 
 const toSearchParams = createSerializer({
@@ -29,22 +29,3 @@ export function useRefunds() {
     },
   };
 }
-
-type RefundMeta = {
-  total: number;
-  perPage: number;
-  currentPage: number;
-  lastPage: number;
-  firstPage: number;
-  firstPageUrl: string;
-  lastPageUrl: string;
-  nextPageUrl: string | null;
-  previousPageUrl: string | null;
-};
-
-type RefundsResponse = {
-  refunds: {
-    meta: RefundMeta;
-    data: Refund[];
-  };
-};
