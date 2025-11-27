@@ -19,7 +19,24 @@ export function useReceipt() {
     }
   }
 
+  async function downloadReceipt(receiptId: string) {
+    try {
+      const { data } = await api.get<{ url: string }>(
+        `/receipts/download/${receiptId}`,
+      );
+
+      if (data.url.startsWith("/")) {
+        window.open(`${import.meta.env.VITE_API_URL}${data.url}`, "_blank");
+      } else {
+        window.open(data.url, "_blank");
+      }
+    } catch (error) {
+      console.error("Erro ao baixar comprovante:", error);
+    }
+  }
+
   return {
     createReceipt,
+    downloadReceipt,
   };
 }

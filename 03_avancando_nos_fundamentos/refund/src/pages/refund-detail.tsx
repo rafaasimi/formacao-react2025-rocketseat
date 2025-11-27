@@ -17,17 +17,25 @@ import { DialogClose } from "@radix-ui/react-dialog";
 import { useRefund } from "@/contexts/refunds/hooks/use-refund";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
+import { useReceipt } from "@/contexts/receipts/hooks/use-receipt";
 
 export function RefundDetail() {
   const navigate = useNavigate();
   const params = useParams();
   const { refund, isLoadingRefund } = useRefund(params.id);
+  const { downloadReceipt } = useReceipt();
 
   const [modalOpen, setModalOpen] = useState(false);
 
   function handleDeleteRefund() {
     console.log("enviei modal");
     setModalOpen(false);
+  }
+
+  function handleDownloadReceipt() {
+    if (refund?.receipt.id) {
+      downloadReceipt(refund.receipt.id);
+    }
   }
 
   useEffect(() => {
@@ -89,8 +97,9 @@ export function RefundDetail() {
 
             <div className="space-y-3">
               <LinkButton
-                className="flex w-full items-center justify-center gap-2"
+                className="flex w-full items-center justify-center gap-2 text-green-100"
                 type="button"
+                onClick={handleDownloadReceipt}
               >
                 <FileIcon className="text-lg" />
                 Abrir comprovante

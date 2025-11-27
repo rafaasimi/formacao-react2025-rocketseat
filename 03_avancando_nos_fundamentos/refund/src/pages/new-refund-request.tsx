@@ -16,6 +16,7 @@ import { useRefund } from "@/contexts/refunds/hooks/use-refund";
 import { useNavigate } from "react-router";
 
 export function NewRefundRequest() {
+  const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -63,6 +64,20 @@ export function NewRefundRequest() {
       },
     });
 
+  function handleInputFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+
+    if (file && file.size > MAX_FILE_SIZE) {
+      console.log("Arquivo muito grande.");
+      return;
+    } else if (!file || file.size === 0) {
+      setSelectedFile(null);
+      return;
+    }
+
+    setSelectedFile(file);
+  }
+
   async function handleUploadReceipt() {
     if (!selectedFile) {
       return;
@@ -104,13 +119,7 @@ export function NewRefundRequest() {
             type="file"
             className="flex-1"
             accept=".pdf,.jpg,.png"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              if (e.target.files && e.target.files.length > 0) {
-                setSelectedFile(e.target.files[0]);
-              } else {
-                setSelectedFile(null);
-              }
-            }}
+            onChange={(e) => handleInputFileChange(e)}
           />
           <IconButton
             type="button"
@@ -119,11 +128,6 @@ export function NewRefundRequest() {
             disabled={!selectedFile || isReceiptCreated || isCreatingReceipt}
           />
         </div>
-
-        <p className="text-red-500">{formState.errors?.title?.message}</p>
-        <p className="text-red-500">{formState.errors?.category?.message}</p>
-        <p className="text-red-500">{formState.errors?.value?.message}</p>
-        <p className="text-red-500">{formState.errors?.receipt?.message}</p>
 
         <Button
           type="submit"
